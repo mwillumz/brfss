@@ -2,3 +2,4 @@
 
 export(divisions_to_msas)
 export(fetch_brfss)
+import(dplyr)

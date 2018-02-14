@@ -1,13 +1,12 @@
 Package: brfss
 Type: Package
 Title: BRFSS data
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(person("Michael", "Williams", , "michael.williams@mpls.frb.org", c("aut", "cre")))
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: A set of tools for working with BRFSS data.
 License: What license is it under?
-Depends:
-  dplyr,
+Imports:
   haven,
   tibble
 Encoding: UTF-8

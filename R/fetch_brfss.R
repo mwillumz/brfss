@@ -6,6 +6,7 @@
 #' @param year A year or vector of years between 2002 & 2016.
 #' @param recode Whether to recode select variables so that variable names are consistent over time.
 #' @return A tbl.
+#' @import dplyr
 #' @export
 fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
 
@@ -25,10 +26,10 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
         download.file(Zip)
 
       bind_rows(
-        tibble(year = 2002:2016,
+        tibble::tibble(year = 2002:2016,
                variable = c("A_MMSA", rep("_MMSA", 14)),
                recode = "geoid"),
-        tibble(year = 2002:2016,
+        tibble::tibble(year = 2002:2016,
                variable = c("A_MMSAWT", rep("_MMSAWT", 14)),
                recode = "wt")
       )
@@ -42,18 +43,18 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
         download.file(Zip)
 
       bind_rows(
-        tibble(year = 2002:2016,
+        tibble::tibble(year = 2002:2016,
                variable = rep("_STATE", 15),
                recode = "geoid")
         ,
-        tibble(year = 2002:2016,
+        tibble::tibble(year = 2002:2016,
                variable = rep("_LLCPWT", 15),
                recode = "wt")
       )
     }
 
     Data <- unzip(Zip, exdir = tempdir()) %>%
-      read_xpt()
+      haven::read_xpt()
 
     #standardize select variable names
     if(recode == TRUE){
