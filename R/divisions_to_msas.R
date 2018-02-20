@@ -7,6 +7,7 @@
 #' @export
 divisions_to_msas <- function(data){
   left_join(data, brfss:::Divisions, by = c('geoid' = 'division')) %>%
-    mutate(geoid = if_else(is.na(msa), geoid, msa)) %>%
+    mutate(geoid = if_else(is.na(msa), geoid, msa),
+           from_division = if_else(is.na(msa), FALSE, TRUE)) %>%
     select(-msa)
 }

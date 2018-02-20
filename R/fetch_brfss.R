@@ -8,7 +8,7 @@
 #' @return A tbl.
 #' @import dplyr
 #' @export
-fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
+fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE, filepath = NULL){
 
   BaseUrl <- "https://www.cdc.gov/brfss"
 
@@ -22,8 +22,16 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
         paste0("MMSA", y, "_XPT.zip")
       }
 
-      file.path(BaseUrl, "smart", y, file) %>%
-        download.file(Zip)
+      if(is.null(filepath)){
+        file.path(BaseUrl, "smart", y, file) %>%
+          download.file(Zip)
+      }
+
+      Filename <- if(y <= 2012){
+        paste0("MMMSA", substr(y, 3, 4), ".xpt")
+      } else{
+        paste0("MMSA", y, ".xpt")
+      }
 
       bind_rows(
         tibble::tibble(year = 2002:2016,
@@ -39,8 +47,13 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
       } else{
         paste0("LLCP", y, "XPT.zip")
       }
-      file.path(BaseUrl, "annual_data", y, "files", file) %>%
-        download.file(Zip)
+
+      #add filename for brfss data
+
+      if(is.null(filepath)){
+        file.path(BaseUrl, "annual_data", y, "files", file) %>%
+          download.file(Zip)
+      }
 
       bind_rows(
         tibble::tibble(year = 2002:2016,
@@ -53,8 +66,12 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE){
       )
     }
 
-    Data <- unzip(Zip, exdir = tempdir()) %>%
-      haven::read_xpt()
+    Data <- if(is.null(filepath)){
+      unzip(Zip, exdir = tempdir()) %>%
+        haven::read_xpt()
+    } else{
+      haven::read_xpt(file.path(tempdir(), Filename))
+    }
 
     #standardize select variable names
     if(recode == TRUE){

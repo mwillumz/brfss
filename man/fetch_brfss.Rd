@@ -4,7 +4,7 @@
 \alias{fetch_brfss}
 \title{Download BRFSS SMART data}
 \usage{
-fetch_brfss(year = 2016, recode = TRUE, smart = TRUE)
+fetch_brfss(year = 2016, recode = TRUE, smart = TRUE, filepath = NULL)
 }
 \arguments{
 \item{year}{A year or vector of years between 2002 & 2016.}

@@ -4,7 +4,9 @@ recodes <- bind_rows(
   tibble(year = 2002:2016,
          variable = c(rep("ASTHMA2", 9), rep("ASTHMA3", 6)),
          recode = "ASTHMA"),
-  #bp module
+  tibble(year = 2002:2016,
+         variable = c(rep("CVDCRHD2", 3), rep("CVDCRHD3", 2), rep("CVDCRHD4", 10)),
+         recode = "CVDCRHD"),
   tibble(year = c(2002:2005, 2007, 2009, 2011, 2013, 2015),
          variable = c(rep('BPHIGH3', 3), rep('BPHIGH4', 6)),
          recode = 'BPHIGH'),
