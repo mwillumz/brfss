@@ -1,4 +1,7 @@
 ---
-title: "Untitled"
-output: html_document
+output:
+  github_document:
+    html_preview: false
 ---
+
+# brfss <img src="man/figures/logo.png" align="right" />
