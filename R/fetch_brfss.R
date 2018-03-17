@@ -43,7 +43,7 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE, filepath = NUL
       )
     } else{
       file <- if(y <= 2010){
-        paste0("CDBRFSS", substr(y, 3, 4), "XPT.zip")
+        paste0("CDBRFS", substr(y, 3, 4), "XPT.zip")
       } else{
         paste0("LLCP", y, "XPT.zip")
       }
@@ -61,7 +61,7 @@ fetch_brfss <- function(year = 2016, recode = TRUE, smart = TRUE, filepath = NUL
                recode = "geoid")
         ,
         tibble::tibble(year = 2002:2016,
-               variable = rep("_LLCPWT", 15),
+               variable = c(rep("_FINALWT", 9), rep("_LLCPWT", 6)),
                recode = "wt")
       )
     }

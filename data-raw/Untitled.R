@@ -1,10 +1,11 @@
 library(brfss); library(stringr)
 library(tidyverse); library(ggplot2)
 
-Data <- fetch_brfss(2016, smart = TRUE, filepath = NULL) %>%
-  group_by(year) %>%
-  divisions_to_msas() %>%
-  nest()
+Data <- fetch_brfss(2002, smart = FALSE, filepath = NULL)
+
+head(DData <- unnest(Data)
+
+table(Data$geoid)
 
 newbie <- function(data, year){
   Data <- if(year >= 2011){
